@@ -262,6 +262,6 @@ tests for changes to scheduling or workspace safety.
 
 ## License
 
-No open-source license has been selected yet. Public repository access permits
-inspection, but does not by itself grant permission to copy, modify, or
-redistribute the work. A license should be added before wider redistribution.
+Learning Loop is licensed under the
+[Apache License 2.0](LICENSE). You may use, modify, and redistribute it,
+including commercially, subject to the license terms.

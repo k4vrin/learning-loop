@@ -1,12 +1,13 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "learning-loop",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Build and run source-grounded learning tracks, interactive simulations, active recall, spaced repetition, and portable Markdown workspace persistence.",
   "author": {
     "name": "k4vrin"
   },
   "homepage": "https://github.com/k4vrin/learning-loop",
   "repository": "https://github.com/k4vrin/learning-loop",
+  "license": "Apache-2.0",
   "keywords": ["learning", "active-recall", "interactive-simulation", "spaced-repetition", "markdown"]
 }

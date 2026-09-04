@@ -51,6 +51,27 @@ class PackageValidatorTests(unittest.TestCase):
             manifest["version"], claude_marketplace["plugins"][0]["version"]
         )
 
+    def test_package_uses_apache_2_license_consistently(self) -> None:
+        root = Path(__file__).parents[1]
+        manifest = json.loads((root / "plugin.json").read_text(encoding="utf-8"))
+        codex_manifest = json.loads(
+            (root / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8")
+        )
+        claude_manifest = json.loads(
+            (root / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
+        )
+        claude_marketplace = json.loads(
+            (root / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8")
+        )
+        project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+
+        self.assertTrue((root / "LICENSE").is_file())
+        self.assertEqual(manifest["license"], "Apache-2.0")
+        self.assertEqual(codex_manifest["license"], "Apache-2.0")
+        self.assertEqual(claude_manifest["license"], "Apache-2.0")
+        self.assertEqual(claude_marketplace["plugins"][0]["license"], "Apache-2.0")
+        self.assertEqual(project["project"]["license"], "Apache-2.0")
+
     def test_marketplaces_publish_the_repository_root_plugin(self) -> None:
         root = Path(__file__).parents[1]
         codex_marketplace = json.loads(

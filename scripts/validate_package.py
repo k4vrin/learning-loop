@@ -24,6 +24,7 @@ ALLOWED_FIELDS = {
 }
 NAME_RE = re.compile(r"^(?!.*(?:--|\.\.))[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?$")
 EXPECTED_NAME = "learning-loop"
+EXPECTED_LICENSE = "Apache-2.0"
 
 
 def load_object(path: Path, errors: list[str]) -> dict | None:
@@ -92,6 +93,10 @@ def validate(root: Path) -> list[str]:
                 names.add(skill_name)
 
     version = manifest.get("version")
+    if manifest.get("license") != EXPECTED_LICENSE:
+        errors.append(f"plugin license must be {EXPECTED_LICENSE!r}")
+    if not (root / "LICENSE").is_file():
+        errors.append("Apache-2.0 LICENSE file is missing")
     adapter_paths = (
         root / ".codex-plugin" / "plugin.json",
         root / ".claude-plugin" / "plugin.json",
@@ -104,6 +109,8 @@ def validate(root: Path) -> list[str]:
             errors.append(f"{adapter_path}: name must match plugin.json")
         if adapter.get("version") != version:
             errors.append(f"{adapter_path}: version must match plugin.json")
+        if adapter.get("license") != EXPECTED_LICENSE:
+            errors.append(f"{adapter_path}: license must match plugin.json")
 
     codex_marketplace_path = root / ".agents" / "plugins" / "marketplace.json"
     codex_marketplace = load_object(codex_marketplace_path, errors)
@@ -140,6 +147,8 @@ def validate(root: Path) -> list[str]:
                     errors.append(f"{claude_marketplace_path}: source must be repository root")
                 if entry.get("version") != version:
                     errors.append(f"{claude_marketplace_path}: version must match plugin.json")
+                if entry.get("license") != EXPECTED_LICENSE:
+                    errors.append(f"{claude_marketplace_path}: license must match plugin.json")
     return errors
 
 
