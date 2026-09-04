@@ -23,17 +23,27 @@ ALLOWED_FIELDS = {
     "extensions",
 }
 NAME_RE = re.compile(r"^(?!.*(?:--|\.\.))[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?$")
+EXPECTED_NAME = "learning-loop"
+
+
+def load_object(path: Path, errors: list[str]) -> dict | None:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"{path}: {exc}")
+        return None
+    if not isinstance(payload, dict):
+        errors.append(f"{path} must contain an object")
+        return None
+    return payload
 
 
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     manifest_path = root / "plugin.json"
-    try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        return [f"plugin.json: {exc}"]
-    if not isinstance(manifest, dict):
-        return ["plugin.json must contain an object"]
+    manifest = load_object(manifest_path, errors)
+    if manifest is None:
+        return errors
     unknown = sorted(set(manifest) - ALLOWED_FIELDS)
     if unknown:
         errors.append(f"plugin.json has unknown fields: {', '.join(unknown)}")
@@ -42,6 +52,8 @@ def validate(root: Path) -> list[str]:
     name = manifest.get("name")
     if not isinstance(name, str) or not NAME_RE.fullmatch(name):
         errors.append("plugin name violates Agent Plugins v1 constraints")
+    elif name != EXPECTED_NAME:
+        errors.append(f"plugin name must be {EXPECTED_NAME!r}")
     for field in ("version", "description", "homepage", "repository", "license"):
         if field in manifest and not isinstance(manifest[field], str):
             errors.append(f"plugin field {field!r} must be a string")
@@ -78,6 +90,56 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"duplicate skill name: {skill_name}")
             if skill_name:
                 names.add(skill_name)
+
+    version = manifest.get("version")
+    adapter_paths = (
+        root / ".codex-plugin" / "plugin.json",
+        root / ".claude-plugin" / "plugin.json",
+    )
+    for adapter_path in adapter_paths:
+        adapter = load_object(adapter_path, errors)
+        if adapter is None:
+            continue
+        if adapter.get("name") != name:
+            errors.append(f"{adapter_path}: name must match plugin.json")
+        if adapter.get("version") != version:
+            errors.append(f"{adapter_path}: version must match plugin.json")
+
+    codex_marketplace_path = root / ".agents" / "plugins" / "marketplace.json"
+    codex_marketplace = load_object(codex_marketplace_path, errors)
+    if codex_marketplace is not None:
+        entries = codex_marketplace.get("plugins")
+        if codex_marketplace.get("name") != EXPECTED_NAME:
+            errors.append(f"{codex_marketplace_path}: unexpected marketplace name")
+        if not isinstance(entries, list) or len(entries) != 1:
+            errors.append(f"{codex_marketplace_path}: expected one plugin entry")
+        else:
+            entry = entries[0]
+            source = entry.get("source") if isinstance(entry, dict) else None
+            if not isinstance(entry, dict) or entry.get("name") != name:
+                errors.append(f"{codex_marketplace_path}: plugin name must match")
+            if not isinstance(source, dict) or source.get("source") != "url":
+                errors.append(f"{codex_marketplace_path}: expected a URL source")
+            elif source.get("url") != "https://github.com/k4vrin/learning-loop.git":
+                errors.append(f"{codex_marketplace_path}: unexpected plugin URL")
+
+    claude_marketplace_path = root / ".claude-plugin" / "marketplace.json"
+    claude_marketplace = load_object(claude_marketplace_path, errors)
+    if claude_marketplace is not None:
+        entries = claude_marketplace.get("plugins")
+        if claude_marketplace.get("name") != EXPECTED_NAME:
+            errors.append(f"{claude_marketplace_path}: unexpected marketplace name")
+        if not isinstance(entries, list) or len(entries) != 1:
+            errors.append(f"{claude_marketplace_path}: expected one plugin entry")
+        else:
+            entry = entries[0]
+            if not isinstance(entry, dict) or entry.get("name") != name:
+                errors.append(f"{claude_marketplace_path}: plugin name must match")
+            else:
+                if entry.get("source") != ".":
+                    errors.append(f"{claude_marketplace_path}: source must be repository root")
+                if entry.get("version") != version:
+                    errors.append(f"{claude_marketplace_path}: version must match plugin.json")
     return errors
 
 

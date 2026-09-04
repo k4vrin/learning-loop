@@ -36,10 +36,41 @@ class PackageValidatorTests(unittest.TestCase):
         codex_manifest = json.loads(
             (root / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8")
         )
+        claude_manifest = json.loads(
+            (root / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
+        )
+        claude_marketplace = json.loads(
+            (root / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8")
+        )
         project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
 
         self.assertEqual(manifest["version"], project["project"]["version"])
         self.assertEqual(manifest["version"], codex_manifest["version"])
+        self.assertEqual(manifest["version"], claude_manifest["version"])
+        self.assertEqual(
+            manifest["version"], claude_marketplace["plugins"][0]["version"]
+        )
+
+    def test_marketplaces_publish_the_repository_root_plugin(self) -> None:
+        root = Path(__file__).parents[1]
+        codex_marketplace = json.loads(
+            (root / ".agents" / "plugins" / "marketplace.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        claude_marketplace = json.loads(
+            (root / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(
+            codex_marketplace["plugins"][0]["source"],
+            {
+                "source": "url",
+                "url": "https://github.com/k4vrin/learning-loop.git",
+                "ref": "main",
+            },
+        )
+        self.assertEqual(claude_marketplace["plugins"][0]["source"], ".")
 
     def test_rejects_unknown_manifest_field(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

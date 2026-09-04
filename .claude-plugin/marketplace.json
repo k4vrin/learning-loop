@@ -1,0 +1,16 @@
+{
+  "name": "learning-loop",
+  "description": "A portable learning workflow for source-grounded tracks, closed-book recall, and durable Markdown evidence.",
+  "owner": {
+    "name": "k4vrin"
+  },
+  "plugins": [
+    {
+      "name": "learning-loop",
+      "source": ".",
+      "description": "Build source-grounded learning tracks and run evidence-based recall from a Markdown workspace.",
+      "version": "0.4.0",
+      "category": "productivity"
+    }
+  ]
+}

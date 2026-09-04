@@ -1,0 +1,16 @@
+{
+  "name": "learning-loop",
+  "version": "0.4.0",
+  "description": "Build source-grounded learning tracks, run closed-book recall, and preserve evidence in a portable Markdown workspace.",
+  "author": {
+    "name": "k4vrin"
+  },
+  "homepage": "https://github.com/k4vrin/learning-loop",
+  "repository": "https://github.com/k4vrin/learning-loop",
+  "keywords": [
+    "learning",
+    "active-recall",
+    "spaced-repetition",
+    "markdown"
+  ]
+}
