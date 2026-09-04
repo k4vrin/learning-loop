@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initialize Learning Vault"
+  short_description: "Create a safe Markdown learning workspace"
+  default_prompt: "Use $initialize-learning-vault to set up a portable Learning workspace in this Markdown directory."

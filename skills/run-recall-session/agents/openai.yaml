@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Recall Session"
+  short_description: "Run one closed-book adaptive review"
+  default_prompt: "Use $run-recall-session to give me today's due closed-book learning session."

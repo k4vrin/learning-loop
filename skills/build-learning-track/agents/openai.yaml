@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Learning Track"
+  short_description: "Design source-grounded adaptive courses"
+  default_prompt: "Use $build-learning-track to turn my learning goal and sources into an executable adaptive track."

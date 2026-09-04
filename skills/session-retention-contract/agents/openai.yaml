@@ -1,0 +1,4 @@
+interface:
+  display_name: "Session Retention Contract"
+  short_description: "Turn completed sessions into durable recall"
+  default_prompt: "Use $session-retention-contract to create source-grounded recall cards from this completed learning session."

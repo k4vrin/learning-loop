@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Learning Simulation"
+  short_description: "Opt-in simulations for complex topics"
+  default_prompt: "Use $build-learning-simulation to create an explicitly requested, source-grounded interactive learning simulation for my topic."

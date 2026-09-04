@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Learning Progress"
+  short_description: "Assess evidence and adapt future practice"
+  default_prompt: "Use $review-learning-progress to review my recent attempts and adjust the learning plan."

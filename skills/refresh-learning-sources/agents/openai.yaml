@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refresh Learning Sources"
+  short_description: "Refresh unstable material from primary sources"
+  default_prompt: "Use $refresh-learning-sources to verify and update time-sensitive material in my learning track."

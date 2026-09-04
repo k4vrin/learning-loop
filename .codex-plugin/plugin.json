@@ -1,0 +1,28 @@
+{
+  "name": "learning-loop",
+  "version": "0.3.0",
+  "description": "Build source-grounded learning tracks, active recall, spaced-repetition practice, and opt-in interactive simulations in a portable Markdown workspace.",
+  "author": {
+    "name": "k4vrin"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Learning Loop",
+    "shortDescription": "Build evidence-based learning systems.",
+    "longDescription": "Turn a learning goal into a source-grounded track, closed-book recall, progress review, and durable Markdown evidence ledger.",
+    "developerName": "k4vrin",
+    "category": "Productivity",
+    "capabilities": [
+      "Learning tracks",
+      "Active recall",
+      "Spaced repetition",
+      "Progress review",
+      "Opt-in interactive simulations"
+    ],
+    "defaultPrompt": [
+      "Build a source-grounded learning track for my goal.",
+      "Run a short closed-book recall session from my due cards.",
+      "Review my learning evidence and adapt the track."
+    ]
+  }
+}
