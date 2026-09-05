@@ -13,31 +13,46 @@ the portable root `plugin.json`. Do not assume the process working directory.
 
 ## Workflow
 
-1. Inspect the learner's goal, current ability, time budget, deadline, supplied
-   sources, allowed research, and exclusions.
-2. Ask only questions whose answers materially change scope. State reasonable
-   assumptions when the user delegates the choice.
-3. Choose a source mode:
+1. Inspect existing learner context before asking questions. Read the active
+   track, relevant prior tracks, and recent attempt evidence when available,
+   then inspect the learner's goal, current ability, time budget, deadline,
+   supplied sources, allowed research, and exclusions. Prefer demonstrated
+   evidence over self-reported confidence.
+2. Run a minimal intake checkpoint:
+   - summarize the relevant context being reused and where it came from;
+   - identify assumptions and information that may be stale;
+   - ask no more than three consolidated questions, and only when their answers
+     would materially change the target performance, scope, starting point,
+     schedule, source policy, or assessment;
+   - do not repeat questions already answered by reliable current context;
+   - if enough context exists, say so, state the assumptions, and proceed.
+3. When current ability would materially change the starting point and reliable
+   evidence is unavailable, use a short diagnostic task instead of relying only
+   on a beginner/intermediate/advanced self-rating. Do not require a diagnostic
+   when recent performance evidence already answers the question.
+4. Record reused context, assumptions, open questions, and the basis for the
+   starting level in the track's `## Intake checkpoint` section.
+5. Choose a source mode:
    - `provided`: use only learner-supplied material;
    - `research`: find current primary sources;
    - `mixed`: treat supplied material as the baseline and research gaps.
-4. Read [references/source-policy.md](references/source-policy.md) before web
+6. Read [references/source-policy.md](references/source-policy.md) before web
    research or time-sensitive claims.
-5. Create a capability map that connects each required capability to priority,
+7. Create a capability map that connects each required capability to priority,
    observable evidence, practice, and assessment.
-6. Prefer the smallest sequence that reaches the target performance. Separate
+8. Prefer the smallest sequence that reaches the target performance. Separate
    prerequisite, constrained, independent, mixed, and timed practice.
-7. Create or update a track note using the
+9. Create or update a track note using the
    [track template](../../templates/Track.md) as the shape.
-8. Apply the `session-retention-contract` skill after each completed learning
+10. Apply the `session-retention-contract` skill after each completed learning
    session. Create three atomic recall cards by default for the most important
    durable lessons, procedures, failure modes, or decisions from that session.
    Use the [card template](../../templates/Card.md); write one answerable
    `## Recall prompt` and a
    source-grounded `## Reference answer` for each card.
-9. Set new cards to `interval_days: 0`, `repetitions: 0`, and
+11. Set new cards to `interval_days: 0`, `repetitions: 0`, and
    `last_rating: new`. Stagger initial due dates to respect the daily budget.
-10. Validate the learning folder with:
+12. Validate the learning folder with:
 
     ```bash
     python3 <plugin-root>/scripts/learning_loop.py validate \

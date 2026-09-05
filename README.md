@@ -110,6 +110,15 @@ Then create a concrete track:
 > microservices. I can study 60 minutes per day. Include implementation tasks,
 > tests, explanation gates, and interview-style recall.
 
+During track design, the agent first inspects relevant context and recent
+learning evidence that already exist in the workspace. It does not repeat
+questions answered by reliable current context. If important information is
+missing, it asks at most three consolidated questions whose answers would
+materially change the track. If the starting level is uncertain, it may use a
+short diagnostic task instead of relying only on self-reported confidence. The
+track records the reused context, assumptions, open questions, and basis for its
+starting level.
+
 Before a new application task, the agent states the required reading or setup
 and waits until you say `prepared`. Due-card recall is closed-book and starts
 without preparation.

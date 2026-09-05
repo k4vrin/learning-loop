@@ -1,6 +1,6 @@
 {
   "name": "learning-loop",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Build source-grounded learning tracks, run closed-book recall, and preserve evidence in a portable Markdown workspace.",
   "author": {
     "name": "k4vrin"

@@ -10,6 +10,13 @@ source_mode: mixed
 
 Describe what the learner must demonstrate under realistic conditions.
 
+## Intake checkpoint
+
+- Reused context and source
+- Assumptions and possibly stale information
+- Open questions that materially affect the track
+- Starting-level basis: recent evidence, diagnostic task, or learner report
+
 ## Constraints
 
 - Available time

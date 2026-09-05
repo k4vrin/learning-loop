@@ -1,6 +1,6 @@
 {
   "name": "learning-loop",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Build source-grounded learning tracks, active recall, spaced-repetition practice, and opt-in interactive simulations in a portable Markdown workspace.",
   "author": {
     "name": "k4vrin"

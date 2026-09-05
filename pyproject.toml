@@ -1,6 +1,6 @@
 [project]
 name = "learning-loop"
-version = "0.4.1"
+version = "0.4.2"
 description = "Deterministic Markdown workspace state for the Learning Loop Agent Plugin"
 requires-python = ">=3.11"
 license = "Apache-2.0"
